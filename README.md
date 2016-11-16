@@ -21,3 +21,13 @@ The bot responds to 2 commands: You can start a game by messaging the bot `play 
 Once the game has started, you can message the bot number's 1-7 to select the columns. 1 is the left column, 7 is the right column.
 
 Once the game has ended, the #general channel will be notified if the bot is added to the channel.
+
+# TODOLIST Improvements
+
+1. Upgrade npm version to support mocha.
+
+2. Implement Unit testing on everything, especially the checking winner logic
+
+3. Make bot more resilient to nonsense inputs around the play command
+
+4. Implement better error messaging/reporting
