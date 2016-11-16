@@ -13,3 +13,4 @@ var connect4bot = new Connect4Bot({
 });
 
 connect4bot.run();
+console.log("Server Started!");
