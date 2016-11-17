@@ -1,6 +1,6 @@
 # Connect 4 Slackbot
 
-This is a NodeJS Server that controls a slackbot built to support head to head play vs another user.
+This is a NodeJS Server that controls a slackbot built to support head to head play of Connect 4 vs another user.
 
 # Setup
 
