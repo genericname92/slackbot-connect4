@@ -4,7 +4,7 @@
   "description": "connect 4 slackbot",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "repository": {
     "type": "git",
