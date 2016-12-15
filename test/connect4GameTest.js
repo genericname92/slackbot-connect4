@@ -145,5 +145,146 @@ describe("Connect 4 Game", function() {
         expect(game._isWinner(startingPlayer)).to.equal(false);
       });
     });
+
+    describe("Horizonal wins", function () {
+      it("correctly returns true for a horizonal line win", function () {
+        var game = new gameFile({
+          activePlayer: startingPlayer,
+          nonActivePlayer: secondPlayer,
+        });
+
+        var positionsToMark = [
+          [0,0],
+          [0,1],
+          [0,2],
+          [0,3]
+        ];
+
+        for (var idx = 0; idx < positionsToMark.length; idx++) {
+          var position = positionsToMark[idx];
+          game.gameState[position[0]][position[1]] = startingPlayer.color;
+        }
+
+        expect(game._isWinner(startingPlayer)).to.equal(true);
+        expect(game.winner).to.equal(startingPlayer);
+      });
+
+      it("correctly does not have a winner when no 4 in a row line", function () {
+        var game = new gameFile({
+          activePlayer: startingPlayer,
+          nonActivePlayer: secondPlayer,
+        });
+
+        var positionsToMark = [
+          [0,0],
+          [0,1],
+          [0,2],
+          [0,4]
+        ];
+
+        for (var idx = 0; idx < positionsToMark.length; idx++) {
+          var position = positionsToMark[idx];
+          game.gameState[position[0]][position[1]] = startingPlayer.color;
+        }
+
+        expect(game._isWinner(startingPlayer)).to.equal(false);
+        expect(game.winner).to.equal(undefined);
+      });
+    });
+
+    describe("Vertical wins", function () {
+      it("correctly has a winner with a vertical 4 in a row", function () {
+        var game = new gameFile({
+          activePlayer: startingPlayer,
+          nonActivePlayer: secondPlayer,
+        });
+
+        var positionsToMark = [
+          [0,0],
+          [1,0],
+          [2,0],
+          [3,0]
+        ];
+
+        for (var idx = 0; idx < positionsToMark.length; idx++) {
+          var position = positionsToMark[idx];
+          game.gameState[position[0]][position[1]] = startingPlayer.color;
+        }
+
+        expect(game._isWinner(startingPlayer)).to.equal(true);
+        expect(game.winner).to.equal(startingPlayer);
+      });
+
+      it("correctly has no winner if no 4 in a row", function () {
+        var game = new gameFile({
+          activePlayer: startingPlayer,
+          nonActivePlayer: secondPlayer,
+        });
+
+        var positionsToMark = [
+          [6,0],
+          [5,0],
+          [4,2],
+          [3,0]
+        ];
+
+        for (var idx = 0; idx < positionsToMark.length; idx++) {
+          var position = positionsToMark[idx];
+          game.gameState[position[0]][position[1]] = startingPlayer.color;
+        }
+
+        expect(game._isWinner(startingPlayer)).to.equal(false);
+        expect(game.winner).to.equal(undefined);
+      });
+    });
+  });
+
+  describe("Setting a piece", function () {
+    it("takes in a player and column and places the piece all the way down the column", function () {
+      var game = new gameFile({
+        activePlayer: startingPlayer,
+        nonActivePlayer: secondPlayer,
+      });
+
+      expect(game.setMove(startingPlayer, 6)).to.equal(true);
+      expect(game.gameState[6][6]).to.equal(startingPlayer.color);
+
+      expect(game.setMove(secondPlayer, 6)).to.equal(true);
+
+      expect(game.gameState[5][6]).to.equal(secondPlayer.color);
+      expect(game.gameState[6][6]).to.equal(startingPlayer.color);
+    });
+
+    it("returns false if cannot place piece into column", function () {
+      var game = new gameFile({
+        activePlayer: startingPlayer,
+        nonActivePlayer: secondPlayer,
+      });
+
+      for (var idx = 0; idx < 8; idx++) {
+        if (idx === 7) {
+          expect(game.setMove(startingPlayer, 6)).to.equal(false);
+        } else {
+          expect(game.setMove(startingPlayer, 6)).to.equal(true);
+        }
+      }
+    });
+  });
+
+  describe("Processing a full move", function () {
+    describe("Correct player passed in", function () {
+      describe("Move does not win the game", function () {
+        it("places the piece then switches players", function () {
+          var game = new gameFile({
+            activePlayer: startingPlayer,
+            nonActivePlayer: secondPlayer,
+          });
+
+          game.processMove(startingPlayer, 3);
+          expect(game.gameState[6][3]).to.equal(startingPlayer.color);
+          expect(game.activePlayer).to.equal(secondPlayer);
+        });
+      });
+    });
   });
 });
