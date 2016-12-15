@@ -24,8 +24,6 @@ Once the game has ended, the #general channel will be notified if the bot is add
 
 # TODOLIST Improvements
 
-1. Implement Unit testing on everything, especially the checking winner logic
+1. Make bot more resilient to nonsense inputs around the play command
 
-2. Make bot more resilient to nonsense inputs around the play command
-
-3. Implement better error messaging/reporting
+2. Implement better error messaging/reporting
